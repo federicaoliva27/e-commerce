@@ -2,23 +2,32 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="prodotti" />
-        <module name="ordini" />
-        <module name="utenti" />
-        <module name="inventario" />
+        <module name="ordini-service" />
+        <module name="prodotti-service" />
+        <module name="utenti-service" />
+      </profile>
+      <profile name="Annotation profile for inventario" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+        </processorPath>
+        <module name="inventario-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="inventario" options="-parameters" />
-      <module name="ordini" options="-parameters" />
-      <module name="prodotti" options="-parameters" />
-      <module name="utenti" options="-parameters" />
+      <module name="inventario-service" options="-parameters" />
+      <module name="ordini-service" options="-parameters" />
+      <module name="prodotti-service" options="-parameters" />
+      <module name="utenti-service" options="-parameters" />
     </option>
   </component>
 </project>

@@ -7,10 +7,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="prodotti" />
-        <module name="ordini" />
-        <module name="utenti" />
-        <module name="inventario" />
       </profile>
       <profile name="Annotation profile for ordini-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -20,12 +16,34 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
         </processorPath>
         <module name="ordini-service" />
+      </profile>
+      <profile name="Annotation profile for inventario-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+        </processorPath>
         <module name="inventario-service" />
+      </profile>
+      <profile name="Annotation profile for utenti-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+        </processorPath>
+        <module name="utenti-service" />
+        <module name="prodotti-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="prodotti-service" target="17" />
-      <module name="utenti-service" target="17" />
+      <module name="inventario" target="17" />
+      <module name="ordini" target="17" />
+      <module name="prodotti" target="17" />
+      <module name="utenti" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

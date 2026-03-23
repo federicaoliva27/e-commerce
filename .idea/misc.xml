@@ -12,6 +12,8 @@
         <option value="$PROJECT_DIR$/gruppofy-root/utenti/pom.xml" />
         <option value="$PROJECT_DIR$/gruppofy-root/inventario/pom.xml" />
         <option value="$PROJECT_DIR$/gruppofy-root/ordini/pom.xml" />
+        <option value="$PROJECT_DIR$/ordini-service/pom.xml" />
+        <option value="$PROJECT_DIR$/inventario-service/pom.xml" />
       </list>
     </option>
   </component>

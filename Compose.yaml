@@ -1,0 +1,105 @@
+services:
+  h2:
+    image: oscarfonts/h2:latest
+    container_name: h2
+    ports:
+      - "1521:1521"
+      - "81:81"
+    environment:
+      H2_OPTIONS: -ifNotExists
+    volumes:
+      - ./h2-data:/opt/h2-data
+    healthcheck:
+      test: ["CMD-SHELL", "ps -ef | grep -q '[h]2.tools.Server'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    networks:
+      - ecommerce-net
+
+  prodotti-service:
+    build:
+      context: ./prodotti-service
+      dockerfile: Dockerfile
+    image: prodotti-service:1
+    container_name: prodotti-service
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:h2:tcp://h2:1521//opt/h2-data/prodotti-db
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      h2:
+        condition: service_healthy
+    networks:
+      - ecommerce-net
+
+  utenti-service:
+    build:
+      context: ./utenti-service
+      dockerfile: Dockerfile
+    image: utenti-service:1
+    container_name: utenti-service
+    ports:
+      - "8081:8081"
+    environment:
+      SERVER_PORT: 8081
+      SPRING_DATASOURCE_URL: jdbc:h2:tcp://h2:1521//opt/h2-data/utenti-db
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      h2:
+        condition: service_healthy
+    networks:
+      - ecommerce-net
+
+  inventario-service:
+    build:
+      context: ./inventario-service
+      dockerfile: Dockerfile
+    image: inventario-service:1
+    container_name: inventario-service
+    ports:
+      - "8082:8082"
+    environment:
+      SERVER_PORT: 8082
+      SPRING_DATASOURCE_URL: jdbc:h2:tcp://h2:1521//opt/h2-data/inventario-db
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      h2:
+        condition: service_healthy
+    networks:
+      - ecommerce-net
+
+  ordini-service:
+    build:
+      context: ./ordini-service
+      dockerfile: Dockerfile
+    image: ordini-service:1
+    container_name: ordini-service
+    ports:
+      - "8083:8083"
+    environment:
+      SERVER_PORT: 8083
+      SPRING_UTENTI_SERVICE: http://utenti-service:8081
+      SPRING_PRODOTTI_SERVICE: http://prodotti-service:8080
+      SPRING_INVENTARIO_SERVICE: http://inventario-service:8082
+    depends_on:
+      h2:
+        condition: service_healthy
+      utenti-service:
+        condition: service_started
+      prodotti-service:
+        condition: service_started
+      inventario-service:
+        condition: service_started
+    networks:
+      - ecommerce-net
+
+networks:
+  ecommerce-net:
+    driver: bridge

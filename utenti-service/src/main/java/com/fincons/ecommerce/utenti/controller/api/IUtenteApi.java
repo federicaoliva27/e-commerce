@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/utenti")
 public interface IUtenteApi {
 
     @PostMapping

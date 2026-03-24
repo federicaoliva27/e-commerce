@@ -6,10 +6,11 @@ import ordini.controller.api.IOrdineApi;
 import ordini.model.dto.OrdineDto;
 import ordini.repository.mapper.IOrdineMapper;
 import ordini.service.IOrdineService;
-
-import org.springframework.beans.factory.annotation.Qualifier;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +30,7 @@ public class OrdiniController implements IOrdineApi {
     }
 
     @Override
-    public ResponseEntity<OrdineDto> getOrdineById(Integer ordineId) {
+    public ResponseEntity<OrdineDto> getOrdineById(@PathVariable Integer ordineId) {
         // log.info("Metodo Richiamato InventarioController.getInventarioById(), with inventarioId = {}", inventarioId);
 
         OrdineDto ordineDto = ordineMapper.toOrdineDto(ordineService.getOrdineById(ordineId)); // Conversion to DTO
@@ -37,14 +38,17 @@ public class OrdiniController implements IOrdineApi {
     }
 
     @Override
-    public ResponseEntity<Void> deleteOrdineById(Integer ordineId) {
+    public ResponseEntity<Void> deleteOrdineById(@PathVariable Integer ordineId) {
         // log.info("Metodo richiamato InventarioController.deleteInventarioById(), with inventarioId = {}", inventarioId);
         ordineService.deleteOrdineById(ordineId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<OrdineDto> updateOrdineById(OrdineDto ordineDto) {
+    public ResponseEntity<OrdineDto> updateOrdineById(
+            @PathVariable Integer ordineId,
+            @Valid @RequestBody OrdineDto ordineDto
+    ) {
         // log.info("Metodo richiamato inventarioController.updateInventarioById(), with inventarioId = {}", ordineDto.getInventarioId());
 
         OrdineDto newOrdine = ordineMapper.toOrdineDto(ordineService.updateOrdineById(ordineMapper.toOrdine(ordineDto))); // inline converison from Dto to Entity and again to Dto

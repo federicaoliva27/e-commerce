@@ -5,7 +5,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/default")
 public interface IInventarioApi {
 
     @GetMapping("/{inventarioId}")
@@ -15,6 +14,8 @@ public interface IInventarioApi {
     ResponseEntity<Void> deleteInventarioById(@Valid @PathVariable Integer inventarioId);
 
     @PatchMapping("/{inventarioId}")
-    ResponseEntity<InventarioDto> updateInventarioById(@Valid @RequestBody InventarioDto inventarioDto);
+    ResponseEntity<InventarioDto> updateInventarioById(
+            @Valid @RequestBody InventarioDto inventarioDto
+    );
 
 }

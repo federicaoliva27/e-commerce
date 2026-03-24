@@ -6,16 +6,18 @@ import ordini.model.dto.OrdineDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/default")
 public interface IOrdineApi {
 
     @GetMapping("/{ordineId}")
-    public ResponseEntity<OrdineDto> getOrdineById(Integer ordineId);
+    ResponseEntity<OrdineDto> getOrdineById(@Valid @PathVariable Integer ordineId);
 
     @DeleteMapping("/{ordineId}")
     ResponseEntity<Void> deleteOrdineById(@Valid @PathVariable Integer ordineId);
 
     @PatchMapping("/{ordineId}")
-    ResponseEntity<OrdineDto> updateOrdineById(@Valid @RequestBody OrdineDto ordineDto);
+    ResponseEntity<OrdineDto> updateOrdineById(
+            @Valid @PathVariable Integer ordineId,
+            @Valid @RequestBody OrdineDto ordineDto
+    );
 
 }
